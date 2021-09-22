@@ -4,8 +4,10 @@
     box-sizing: border-box;
     
 }
-body{
+.listaTodos{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .card{
@@ -14,4 +16,5 @@ body{
     padding: 2em;
     width: 50%;
     background-color: cornflowerblue;
+    margin: auto;
 }

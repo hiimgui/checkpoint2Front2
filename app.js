@@ -17,19 +17,21 @@ initalDate.value = `${today} / ${month} / ${year}`
 
 btnSubmit.addEventListener("click", (e) => {
     e.preventDefault();
-    //TODO: validação dos inputs, length!= 0, 
 
+    //TODO: validação dos inputs, length != 0, descricao.length > 10, if error alert("erro"), opcional data limite
+    if(limitDate.value == null || descricaoTodo.value.length < 10) return alert("error");
     let limitDateValor = limitDate.value.split("-");
     limitDateValor = limitDateValor.reverse();
     limitDateValor = limitDateValor.toString().replace("," , "/");
     limitDateValor = limitDateValor.replace("," , "/");
-    listaTodos.innerHTML += `${descricaoTodo.value} ${limitDateValor}`;
+    listaTodos.innerHTML += `<div class="card">${descricaoTodo.value} ${limitDateValor} </div>`;
 
-    //setdata to localstorage aqui, todo todo precisa de um botao delete
+    //TODO: setdata to localstorage aqui, todo todo precisa de um botao delete
+
+    //TODO checkbox -> strikethrough
 
     //esvaziando inputs
     limitDate.value = "";
     descricaoTodo.value = "";
 })
 
-//Validação de campos

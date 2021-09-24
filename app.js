@@ -33,11 +33,17 @@ btnSubmit.addEventListener("click", (e) => {
         dataLimite:limitDateValor
     }
     todos.push(tarefa);
-    let card = `<li class="card">${descricaoTodo.value} ${limitDateValor} <button class="terminar">Terminada</button> <button onclick="excluir()">Excluir</button></li>`;
-    listaTodos.innerHTML += card;
-
-
+    // let card = `<li class="card">${descricaoTodo.value} ${limitDateValor} <button class="terminar">Terminada</button> <button>Excluir</button></li>`;
+    // listaTodos.innerHTML += card;
+    
     adicionarLocalStorage(tarefa)
+    listaTodos.innerHTML = "";
+    let dataToUse =  todos.map((x,y)=>{
+        return `<li class="card">${x.descricao} ${x.dataLimite}</li>
+               <button onclick="excluir(${y})">Excluir</button> `
+        
+    })
+    listaTodos.innerHTML += dataToUse;
     //esvaziando inputs
     limitDate.value = "";
     descricaoTodo.value = "";
@@ -58,15 +64,17 @@ let carregarInfoLocalStorage = () => {
         todos = JSON.parse(infoLocalStorage)
         console.log(todos)
     }
-    let dataToUse =  todos.map((x)=>{
-            return `<li class="card">${x.descricao}</li>`
+    let dataToUse =  todos.map((x,y)=>{
+            return `<li class="card">${x.descricao} ${x.dataLimite}</li>
+                   <button onclick="excluir(${y})">Excluir</button> `
             
         })
+        listaTodos.innerHTML = ""
         listaTodos.innerHTML+=dataToUse    
 }
 
 function excluir(int){
-    console.log("clicou excluir")
+    console.log(int)
     let infoLocalStorage = localStorage.getItem(keyLocalStorage);
     todos = JSON.parse(infoLocalStorage)
     todos.splice(int, 1);
@@ -74,7 +82,7 @@ function excluir(int){
     
     carregarInfoLocalStorage();
 }
-    
+
 
 function terminar(int){
     console.log("clicou terminar")

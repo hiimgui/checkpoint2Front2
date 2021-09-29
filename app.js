@@ -5,18 +5,12 @@ const limitDate = document.querySelector(".limitDate");
 const descricaoTodo = document.querySelector(".descricaoTodo")
 const btnSubmit = document.querySelector(".btnSubmit");
 const listaTodos = document.querySelector(".listaTodos");
-const listaRiscada = document.querySelector(".riscado")
 let todos = [];
 let keyLocalStorage = 'info';
 
-let today = new Date().toLocaleString('pt-BR').substr(0, 10)
-// let date = new Date()
-// let today = date.getDate();
-// let month = date.getMonth() + 1;
-// let year = date.getFullYear();
-initalDate.value = today
+let today = new Date().toLocaleString('pt-BR').substr(0, 10);
+initalDate.value = today;
 
-//TODO: onload = getitems do local storage //nao ta indo socorro luciano
 window.onload=()=>{
     console.log("carregando...")
     carregarInfoLocalStorage();

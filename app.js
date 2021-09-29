@@ -1,4 +1,4 @@
-//variáveis
+// declarando variáveis
 const form = document.querySelector("form");
 const initalDate = document.querySelector(".initialDate");
 const limitDate = document.querySelector(".limitDate");
@@ -8,16 +8,22 @@ const listaTodos = document.querySelector(".listaTodos");
 let todos = [];
 let keyLocalStorage = 'info';
 
-let today = new Date().toLocaleString('pt-BR').substr(0, 10);
+//data para inputs
+let newDate = new Date();
+let today = newDate.toLocaleString('pt-BR').substr(0, 10);
 initalDate.value = today;
 
+//quando a pagina carregar, renderiza as informacoes do local storage
 window.onload=()=>{
     console.log("carregando...")
     carregarInfoLocalStorage();
 }
+
+//apos apertar submit, validamos os inputs e criamos um objeto que tera os valores dos inputs
 btnSubmit.addEventListener("click", (e) => {
     e.preventDefault();
-    if(limitDate.value === "" || descricaoTodo.value.length < 10 || today > limitDate.value) return alert("error");
+    console.log(newDate.value , limitDate.value)
+    if(limitDate.value === "" || descricaoTodo.value.length < 10) return alert("error");
     let limitDateValor = limitDate.value.split("-");
     limitDateValor = limitDateValor.reverse();
     limitDateValor = limitDateValor.toString().replace("," , "/");
@@ -26,9 +32,9 @@ btnSubmit.addEventListener("click", (e) => {
     let tarefa = {
         descricao: descricaoTodo.value,
         dataLimite:limitDateValor,
-        checked:false,
-        id:Date.now()
     }
+    //colocamos o objeto no array declarado no inicio e adicionamos as informacoes no local storage, logo depois, carregamos as informacoes novamente
+
     todos.push(tarefa);
     adicionarLocalStorage(tarefa)
     carregarInfoLocalStorage()
@@ -37,6 +43,7 @@ btnSubmit.addEventListener("click", (e) => {
     descricaoTodo.value = "";
 })
 
+//funcao chamada no submit para abrirar o objeto criado no local storage, logo depois transformamos a informacao em json para abrigar no local storage
 let adicionarLocalStorage = (obj) => {
     let infoLocalStorage = localStorage.getItem(keyLocalStorage);
     if(infoLocalStorage !== null){
@@ -46,6 +53,7 @@ let adicionarLocalStorage = (obj) => {
     localStorage.setItem(keyLocalStorage,JSON.stringify(todos))
 }
 
+//funcao que renderiza as informacoes localizadas no local storage
 let carregarInfoLocalStorage = () => {
     let infoLocalStorage = localStorage.getItem(keyLocalStorage);
     if(infoLocalStorage !== null){
@@ -62,6 +70,7 @@ let carregarInfoLocalStorage = () => {
         listaTodos.innerHTML+=dataToUse    
 }
 
+//funcao chamada quando um clique acontece no botao excluir, tira um objeto do array todos
 function excluir(int){
     console.log(int)
     let infoLocalStorage = localStorage.getItem(keyLocalStorage);
@@ -72,7 +81,7 @@ function excluir(int){
     carregarInfoLocalStorage();
 }
 
-
+//funcao chamada quando um clique acontece no botao terminar, faz com que fique riscado as informacoes 
 function terminar(y){
     
     let index = y;

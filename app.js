@@ -87,24 +87,5 @@ function terminar(y){
     const li = document.querySelectorAll("li")
     li[index+1].classList.add("riscado")
 }
-    // todos.map((element,index) => {
-    //     listaRiscada.innerHTML = element.descricao
-    //     console.log(element[y])
-    //     const li = document.querySelectorAll("li")
-    //     li[y].style.display = "none"  
-    //     localStorage.setItem(keyLocalStorage, JSON.stringify(todos));
 
-
-    // let infoLocalStorage = localStorage.getItem(keyLocalStorage);
-    // todos = JSON.parse(infoLocalStorage)
-    // todos.map((x,y)=>{
-    //     if(!x.checked){
-    //         const li = document.querySelectorAll("li")
-    //         console.log(li[y])
-    //         li[y].classList.add("riscado")
-    //     }
-    //     console.log(x,y)
-    // })
-//     })
-// };
    

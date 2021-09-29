@@ -2,12 +2,17 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Yaldevi', sans-serif;
     
 }
-.listaTodos{
-    display: flex;
-    flex-direction: column;
+form{
+    display: grid;
     justify-content: center;
+}
+button{
+    display: flex;
+    justify-content: center;
+    margin: 1em auto 1em auto;
 }
 
 .card{
@@ -16,5 +21,10 @@
     padding: 2em;
     width: 50%;
     background-color: cornflowerblue;
-    margin: auto;
+    margin: 1em auto;
+    list-style: none;
+}
+
+.riscado{
+    text-decoration: line-through;
 }

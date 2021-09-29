@@ -5,15 +5,16 @@ const limitDate = document.querySelector(".limitDate");
 const descricaoTodo = document.querySelector(".descricaoTodo")
 const btnSubmit = document.querySelector(".btnSubmit");
 const listaTodos = document.querySelector(".listaTodos");
+const listaRiscada = document.querySelector(".riscado")
 let todos = [];
 let keyLocalStorage = 'info';
 
-
-let date = new Date()
-let today = date.getDate();
-let month = date.getMonth() + 1;
-let year = date.getFullYear();
-initalDate.value = `${today} / ${month} / ${year}`
+let today = new Date().toLocaleString('pt-BR').substr(0, 10)
+// let date = new Date()
+// let today = date.getDate();
+// let month = date.getMonth() + 1;
+// let year = date.getFullYear();
+initalDate.value = today
 
 //TODO: onload = getitems do local storage //nao ta indo socorro luciano
 window.onload=()=>{
@@ -22,7 +23,7 @@ window.onload=()=>{
 }
 btnSubmit.addEventListener("click", (e) => {
     e.preventDefault();
-    if(limitDate.value === "" || descricaoTodo.value.length < 10) return alert("error");
+    if(limitDate.value === "" || descricaoTodo.value.length < 10 || today > limitDate.value) return alert("error");
     let limitDateValor = limitDate.value.split("-");
     limitDateValor = limitDateValor.reverse();
     limitDateValor = limitDateValor.toString().replace("," , "/");
@@ -30,20 +31,13 @@ btnSubmit.addEventListener("click", (e) => {
 
     let tarefa = {
         descricao: descricaoTodo.value,
-        dataLimite:limitDateValor
+        dataLimite:limitDateValor,
+        checked:false,
+        id:Date.now()
     }
     todos.push(tarefa);
-    // let card = `<li class="card">${descricaoTodo.value} ${limitDateValor} <button class="terminar">Terminada</button> <button>Excluir</button></li>`;
-    // listaTodos.innerHTML += card;
-    
     adicionarLocalStorage(tarefa)
-    listaTodos.innerHTML = "";
-    let dataToUse =  todos.map((x,y)=>{
-        return `<li class="card">${x.descricao} ${x.dataLimite}</li>
-               <button onclick="excluir(${y})">Excluir</button> `
-        
-    })
-    listaTodos.innerHTML += dataToUse;
+    carregarInfoLocalStorage()
     //esvaziando inputs
     limitDate.value = "";
     descricaoTodo.value = "";
@@ -66,6 +60,7 @@ let carregarInfoLocalStorage = () => {
     }
     let dataToUse =  todos.map((x,y)=>{
             return `<li class="card">${x.descricao} ${x.dataLimite}</li>
+                   <button class="terminar" onclick="terminar(${y})">Terminar</button>
                    <button onclick="excluir(${y})">Excluir</button> `
             
         })
@@ -84,7 +79,32 @@ function excluir(int){
 }
 
 
-function terminar(int){
-    console.log("clicou terminar")
-    terminar.parentElement.style.setProperty("text-decoration","line-through");
+function terminar(y){
+    
+    let index = y;
+    let infoLocalStorage = localStorage.getItem(keyLocalStorage);
+    todos = JSON.parse(infoLocalStorage)
+    const li = document.querySelectorAll("li")
+    li[index+1].classList.add("riscado")
 }
+    // todos.map((element,index) => {
+    //     listaRiscada.innerHTML = element.descricao
+    //     console.log(element[y])
+    //     const li = document.querySelectorAll("li")
+    //     li[y].style.display = "none"  
+    //     localStorage.setItem(keyLocalStorage, JSON.stringify(todos));
+
+
+    // let infoLocalStorage = localStorage.getItem(keyLocalStorage);
+    // todos = JSON.parse(infoLocalStorage)
+    // todos.map((x,y)=>{
+    //     if(!x.checked){
+    //         const li = document.querySelectorAll("li")
+    //         console.log(li[y])
+    //         li[y].classList.add("riscado")
+    //     }
+    //     console.log(x,y)
+    // })
+//     })
+// };
+   
